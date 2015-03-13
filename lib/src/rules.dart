@@ -41,7 +41,9 @@ final Registry ruleRegistry = new Registry()
   // Disabled pending fix: https://github.com/dart-lang/linter/issues/35
   //..register(new UnnecessaryGetters())
   ..register(new UnnecessaryGettersSetters())
-  ..register(new CountConstants());
+  ..register(new CountVariables.constant())
+  ..register(new CountVariables.finals())
+  ..register(new CountConstructors.constant());
 
 /// Registry of contributed lint rules.
 class Registry extends Object with IterableMixin<LintRule> {
