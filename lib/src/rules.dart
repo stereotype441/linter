@@ -22,6 +22,7 @@ import 'package:linter/src/rules/super_goes_last.dart';
 import 'package:linter/src/rules/type_init_formals.dart';
 import 'package:linter/src/rules/unnecessary_brace_in_string_interp.dart';
 import 'package:linter/src/rules/unnecessary_getters_setters.dart';
+import 'package:linter/src/rules/count_constants.dart';
 
 final Registry ruleRegistry = new Registry()
   ..register(new CamelCaseTypes())
@@ -39,7 +40,8 @@ final Registry ruleRegistry = new Registry()
   ..register(new UnnecessaryBraceInStringInterp())
   // Disabled pending fix: https://github.com/dart-lang/linter/issues/35
   //..register(new UnnecessaryGetters())
-  ..register(new UnnecessaryGettersSetters());
+  ..register(new UnnecessaryGettersSetters())
+  ..register(new CountConstants());
 
 /// Registry of contributed lint rules.
 class Registry extends Object with IterableMixin<LintRule> {
