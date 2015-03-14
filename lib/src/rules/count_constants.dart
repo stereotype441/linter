@@ -56,6 +56,18 @@ class CountConstructors extends LintRule {
   AstVisitor getVisitor() => new _ConstructorVisitor(this);
 }
 
+class CountDefaults extends LintRule {
+  CountDefaults() : super(
+          name: 'count_defaults',
+          description: 'Count defaults',
+          details: details,
+          group: group,
+          kind: kind);
+
+  @override
+  AstVisitor getVisitor() => new _DefaultsVisitor(this);
+}
+
 class CountVariables extends LintRule {
   final VariableDeclarationPredicate predicate;
 
@@ -127,6 +139,19 @@ class _ConstructorVisitor extends RecursiveAstVisitor<Object> {
       if (element != null) {
         rule.reportLint(node);
       }
+    }
+    return null;
+  }
+}
+
+class _DefaultsVisitor extends RecursiveAstVisitor<Object> {
+  final CountDefaults rule;
+  _DefaultsVisitor(this.rule);
+
+  @override
+  Object visitDefaultFormalParameter(DefaultFormalParameter node) {
+    if (node.defaultValue != null) {
+      rule.reportLint(node);
     }
     return null;
   }
