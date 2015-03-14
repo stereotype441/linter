@@ -43,7 +43,8 @@ final Registry ruleRegistry = new Registry()
   ..register(new UnnecessaryGettersSetters())
   ..register(new CountVariables.constant())
   ..register(new CountVariables.finals())
-  ..register(new CountConstructors.constant());
+  ..register(new CountConstructors.constant())
+  ..register(new CountConstInvocations());
 
 /// Registry of contributed lint rules.
 class Registry extends Object with IterableMixin<LintRule> {
