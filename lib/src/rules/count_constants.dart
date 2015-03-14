@@ -20,6 +20,18 @@ const kind = Kind.DO;
 
 typedef bool VariableDeclarationPredicate(VariableDeclaration node);
 
+class CountAnnotations extends LintRule {
+  CountAnnotations() : super(
+          name: 'count_annotations',
+          description: 'Count annotations',
+          details: details,
+          group: group,
+          kind: kind);
+
+  @override
+  AstVisitor getVisitor() => new _AnnotationVisitor(this);
+}
+
 class CountConstInvocations extends LintRule {
   CountConstInvocations() : super(
           name: 'count_constant_invocations',
@@ -75,6 +87,18 @@ class CountVariables extends LintRule {
       node.initializer != null &&
       node.isFinal &&
       node.element.enclosingElement is! ExecutableElement;
+}
+
+class _AnnotationVisitor extends RecursiveAstVisitor<Object> {
+  final CountAnnotations rule;
+  _AnnotationVisitor(this.rule);
+
+  @override
+  Object visitAnnotation(Annotation node) {
+    super.visitAnnotation(node);
+    rule.reportLint(node);
+    return null;
+  }
 }
 
 class _ConstInvocationVisitor extends RecursiveAstVisitor<Object> {
