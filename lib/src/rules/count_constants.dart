@@ -80,6 +80,18 @@ class CountDefaults extends LintRule {
   AstVisitor getVisitor() => new _DefaultsVisitor(this);
 }
 
+class CountMethods extends LintRule {
+  CountMethods() : super(
+          name: 'count_methods',
+          description: 'Count methods',
+          details: details,
+          group: group,
+          kind: kind);
+
+  @override
+  AstVisitor getVisitor() => new _MethodVisitor(this);
+}
+
 class CountVariables extends LintRule {
   final VariableDeclarationPredicate predicate;
 
@@ -176,6 +188,17 @@ class _DefaultsVisitor extends RecursiveAstVisitor<Object> {
     if (node.defaultValue != null) {
       rule.reportLint(node);
     }
+    return null;
+  }
+}
+
+class _MethodVisitor extends RecursiveAstVisitor<Object> {
+  final CountMethods rule;
+  _MethodVisitor(this.rule);
+
+  @override
+  Object visitMethodDeclaration(MethodDeclaration node) {
+    rule.reportLint(node);
     return null;
   }
 }
