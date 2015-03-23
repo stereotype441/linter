@@ -32,6 +32,18 @@ class CountAnnotations extends LintRule {
   AstVisitor getVisitor() => new _AnnotationVisitor(this);
 }
 
+class CountClasses extends LintRule {
+  CountClasses() : super(
+          name: 'count_classes',
+          description: 'Count classes',
+          details: details,
+          group: group,
+          kind: kind);
+
+  @override
+  AstVisitor getVisitor() => new _ClassVisitor(this);
+}
+
 class CountConstInvocations extends LintRule {
   CountConstInvocations() : super(
           name: 'count_constant_invocations',
@@ -108,6 +120,17 @@ class _AnnotationVisitor extends RecursiveAstVisitor<Object> {
   @override
   Object visitAnnotation(Annotation node) {
     super.visitAnnotation(node);
+    rule.reportLint(node);
+    return null;
+  }
+}
+
+class _ClassVisitor extends RecursiveAstVisitor<Object> {
+  final CountClasses rule;
+  _ClassVisitor(this.rule);
+
+  @override
+  Object visitClassDeclaration(ClassDeclaration node) {
     rule.reportLint(node);
     return null;
   }

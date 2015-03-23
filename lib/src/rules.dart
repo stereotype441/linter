@@ -46,7 +46,8 @@ final Registry ruleRegistry = new Registry()
   ..register(new CountConstructors.constant())
   ..register(new CountConstInvocations())
   ..register(new CountAnnotations())
-  ..register(new CountDefaults());
+  ..register(new CountDefaults())
+  ..register(new CountClasses());
 
 /// Registry of contributed lint rules.
 class Registry extends Object with IterableMixin<LintRule> {
